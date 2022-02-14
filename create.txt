@@ -1,0 +1,48 @@
+create table Singer(
+	Id integer primary key,
+	Singer_name varchar(100) not null,
+	Nickname varchar(100)
+	);
+
+create table Genre (
+	Id integer primary key,
+	Name varchar(100)
+	);
+
+create table Genre_singer (
+	Id integer primary key,
+	Singer_id integer not null references Singer(Id),
+	Genre_id integer not null references Genre(Id)
+	);
+
+create table Album(
+	Id integer primary key,
+	Name varchar(100) not null,
+	Issue_date integer not null
+	);
+
+create table Singer_album (
+	Id integer primary key,
+	Singer_id integer not null references Singer(Id),
+	Album_id integer not null references Album(Id)
+	);
+
+create table Tracks (
+	Id integer primary key,
+	Name varchar(100) not null,
+	Duration numeric(3,2), 
+	Album_id integer references Album(Id),
+	CHECK (duration>0)
+	);
+
+create table Collection (
+	Id integer primary key,
+	Collection_name varchar(100) not null,
+	Issue_date integer not null
+	);
+
+create table Collection_track (
+	Id integer primary key,
+	Collection_id integer not null references Collection(Id),
+	Tracks_id integer not null references Tracks(Id)
+	);
